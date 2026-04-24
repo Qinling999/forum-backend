@@ -10,6 +10,9 @@ import com.example.forum.repository.PostRepository;
 import com.example.forum.repository.UserRepository;
 import com.example.forum.common.Result;
 
+import com.example.forum.service.PostService;
+import com.example.forum.service.UserService;
+import com.example.forum.vo.PostVO;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +36,10 @@ public class PostController {
     private NotificationRepository notificationRepository;
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private PostService postService;
+    @Autowired
+    private UserService userService;
 
     // ========================
     // 1. 创建帖子（必须登录）
@@ -360,6 +367,41 @@ public class PostController {
             e.printStackTrace(); // ⭐ 一定要打印
             return Result.error("上传失败：" + e.getMessage());
         }
+    }
+
+    //推荐系统
+    @GetMapping("/recommend")
+    public Result<List<PostVO>> recommend(
+            HttpServletRequest request,
+            @RequestParam(required = false) String categoryId) {
+
+        String userId = (String) request.getAttribute("userId");
+
+        return Result.success(postService.recommend(userId, categoryId));
+    }
+
+    @PostMapping("/dislike")
+    public Result<String> dislike(@RequestBody Map<String, String> map,
+                                  HttpServletRequest request) {
+
+        String userId = (String) request.getAttribute("userId");
+        String postId = map.get("postId");
+
+        userService.dislikePost(userId, postId);
+
+        return Result.success("ok");
+    }
+
+    @PostMapping("/block")
+    public Result<String> block(@RequestBody Map<String, String> map,
+                                HttpServletRequest request) {
+
+        String userId = (String) request.getAttribute("userId");
+        String targetUserId = map.get("targetUserId");
+
+        userService.blockUser(userId, targetUserId);
+
+        return Result.success("ok");
     }
 
 }

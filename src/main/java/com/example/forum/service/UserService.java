@@ -49,4 +49,39 @@ public class UserService {
     public List<User> getFans(String userId) {
         return userRepository.findFans(userId);
     }
+
+    public void dislikePost(String userId, String postId) {
+
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null) return;
+
+        if (user.getDislikedPostIds() == null) {
+            user.setDislikedPostIds(new ArrayList<>());
+        }
+
+        // 去重
+        if (!user.getDislikedPostIds().contains(postId)) {
+            user.getDislikedPostIds().add(postId);
+        }
+
+        userRepository.save(user);
+    }
+    public void blockUser(String userId, String targetUserId) {
+
+        if (userId.equals(targetUserId)) return; // 防止自己拉黑自己
+
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null) return;
+
+        if (user.getBlockedUserIds() == null) {
+            user.setBlockedUserIds(new ArrayList<>());
+        }
+
+        // 去重
+        if (!user.getBlockedUserIds().contains(targetUserId)) {
+            user.getBlockedUserIds().add(targetUserId);
+        }
+
+        userRepository.save(user);
+    }
 }

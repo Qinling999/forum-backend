@@ -35,5 +35,9 @@ public interface PostRepository extends MongoRepository<Post, String> {
 
     List<Post> findByAuthorId(String authorId);
 
+    @Query("{ 'likedUsers': ?0 }")
+    List<Post> findLikedPosts(String userId);
 
+    @Query("{ 'favoritedUsers': ?0 }")
+    List<Post> findFavoritedPosts(String userId);
 }

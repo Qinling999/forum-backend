@@ -33,6 +33,7 @@ public class Post {
     private int views;
     private List<String> likedUsers;
     private int likes;
+    private List<String> favoritedUsers;
 
     private Integer commentCount = 0;
 

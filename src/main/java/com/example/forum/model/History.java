@@ -18,4 +18,5 @@ public class History {
     private String title;
 
     private Date createTime;
+    private Long duration; // 单位：秒
 }

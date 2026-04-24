@@ -3,6 +3,7 @@ package com.example.forum.controller;
 import com.example.forum.common.Result;
 import com.example.forum.model.History;
 import com.example.forum.repository.HistoryRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,23 +21,48 @@ public class HistoryController {
     // 1. 添加浏览记录
     // ========================
     @PostMapping("/add")
-    public Result<String> addHistory(@RequestBody History history) {
+    public Result<String> addHistory(@RequestBody History history,
+                                     HttpServletRequest request) {
 
-        if (history.getUserId() == null || history.getPostId() == null) {
+        // ⭐ 从拦截器获取 userId
+        String userId = (String) request.getAttribute("userId");
+
+        if (userId == null || history.getPostId() == null) {
             return Result.error("参数错误");
         }
 
+        // ⭐ 强制覆盖，防止前端伪造
+        history.setUserId(userId);
+
         History exist = historyRepository
-                .findByUserIdAndPostId(history.getUserId(), history.getPostId());
+                .findByUserIdAndPostId(userId, history.getPostId());
 
         if (exist != null) {
-            // ⭐ 已存在 → 更新
+            // 更新
             exist.setCreateTime(new Date());
-            exist.setTitle(history.getTitle()); // 防止标题变了
+            exist.setTitle(history.getTitle());
+
+            // ⭐ 停留时间取最大值（你这个很好）
+            if (history.getDuration() != null) {
+                exist.setDuration(
+                        Math.max(
+                                exist.getDuration() == null ? 0 : exist.getDuration(),
+                                history.getDuration()
+                        )
+                );
+            }
+
             historyRepository.save(exist);
+
         } else {
-            // ⭐ 不存在 → 新增
+            // 新增
             history.setCreateTime(new Date());
+
+            // 防止 duration 为空
+            if (history.getDuration() == null) {
+                history.setDuration(0L);
+            }
+
             historyRepository.save(history);
         }
 
