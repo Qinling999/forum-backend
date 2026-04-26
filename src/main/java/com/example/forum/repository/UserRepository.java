@@ -21,4 +21,7 @@ public interface UserRepository extends MongoRepository<User, String> {
     List<User> findFans(String userId);
 
     long countByCreateTimeAfter(Date date);
+
+    // 今日新增用户
+    long countByCreateTimeBetween(Date start, Date end);
 }

@@ -57,4 +57,7 @@ public interface PostRepository extends MongoRepository<Post, String> {
             "{ $group: { _id: null, total: { $sum: '$likes' } } }"
     })
     Long sumLikes();
+
+    // 今日新增帖子
+    long countByCreateTimeBetween(Date start, Date end);
 }

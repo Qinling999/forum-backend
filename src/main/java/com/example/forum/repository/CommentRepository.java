@@ -25,5 +25,8 @@ public interface CommentRepository extends MongoRepository<Comment, String> {
 
     long countByUserId(String userId);
     long countByPostId(String postId);
+    // 总评论数
+    long count();
+
 
 }
