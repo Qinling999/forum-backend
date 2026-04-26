@@ -22,6 +22,7 @@ public class User {
     private String email;
     private String nickname;
     private String avatar;
+    private String role;
 
     // 我关注的人
     private List<String> following;

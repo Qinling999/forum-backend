@@ -1,12 +1,10 @@
 package com.example.forum.controller;
 
+import com.example.forum.model.History;
 import com.example.forum.model.Notification;
 import com.example.forum.model.Post;
 import com.example.forum.model.User;
-import com.example.forum.repository.CommentRepository;
-import com.example.forum.repository.NotificationRepository;
-import com.example.forum.repository.PostRepository;
-import com.example.forum.repository.UserRepository;
+import com.example.forum.repository.*;
 import com.example.forum.service.UserService;
 import com.example.forum.service.VisitorService;
 import com.example.forum.util.JwtUtil;
@@ -41,6 +39,8 @@ public class UserController {
     private VisitorService visitorService;
     @Autowired
     private CommentRepository commentRepository;
+    @Autowired
+    private HistoryRepository historyRepository;
 
     // ========================
     // 1. 注册
@@ -64,6 +64,7 @@ public class UserController {
         user.setCreateTime(new Date());
         user.setFollowing(new ArrayList<>());
         user.setFollowers(new ArrayList<>());
+        user.setRole("user");
 
         return Result.success(userRepository.save(user));
     }
@@ -84,12 +85,16 @@ public class UserController {
             return Result.error("用户不存在");
         }
 
-        // ⭐ BCrypt校验
         if (!passwordEncoder.matches(user.getPassword(), dbUser.getPassword())) {
             return Result.error("密码错误");
         }
 
-        String token = JwtUtil.generateToken(dbUser.getId(), dbUser.getUsername());
+        // ⭐ 加上 role
+        String token = JwtUtil.generateToken(
+                dbUser.getId(),
+                dbUser.getUsername(),
+                dbUser.getRole()
+        );
 
         Map<String, Object> data = new HashMap<>();
         data.put("token", token);
@@ -552,6 +557,63 @@ public class UserController {
         userRepository.save(user);
 
         return Result.success("修改成功，请重新登录");
+    }
+
+    //13. 后台数据统计
+    private Date todayStart() {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        return c.getTime();
+    }
+
+    @GetMapping("/admin/dashboard")
+    public Result<Map<String, Object>> getDashboard(HttpServletRequest request) {
+        try {
+            String role = (String) request.getAttribute("role");
+
+            if (!"admin".equals(role)) {
+                return Result.error("无权限");
+            }
+
+            Map<String, Object> data = new HashMap<>();
+            Date start = todayStart();
+
+            long totalUsers = userRepository.count();
+            long newUsersToday = userRepository.countByCreateTimeAfter(start);
+
+            long totalPosts = postRepository.count();
+            long newPostsToday = postRepository.countByCreateTimeAfter(start);
+
+            long totalViews = postRepository.sumViews(); // ⭐重点
+            long totalLikes = postRepository.sumLikes(); // ⭐重点
+            long totalComments = commentRepository.count();
+
+            List<History> historyList = historyRepository.findAll();
+
+            double avgDuration = historyList.stream()
+                    .filter(h -> h.getDuration() != null)
+                    .mapToLong(History::getDuration)
+                    .average()
+                    .orElse(0);
+
+            data.put("totalUsers", totalUsers);
+            data.put("newUsersToday", newUsersToday);
+            data.put("totalPosts", totalPosts);
+            data.put("newPostsToday", newPostsToday);
+            data.put("totalViews", totalViews);
+            data.put("totalLikes", totalLikes);
+            data.put("totalComments", totalComments);
+            data.put("avgDuration", avgDuration);
+
+            return Result.success(data);
+
+        } catch (Exception e) {
+            e.printStackTrace(); // ⭐⭐⭐ 关键
+            return Result.error("系统运行异常");
+        }
     }
 
 }

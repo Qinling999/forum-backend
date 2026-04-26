@@ -4,6 +4,7 @@ import com.example.forum.model.User;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
+import java.util.Date;
 import java.util.List;
 
 public interface UserRepository extends MongoRepository<User, String> {
@@ -19,4 +20,5 @@ public interface UserRepository extends MongoRepository<User, String> {
     @Query(value = "{ 'following': ?0 }")
     List<User> findFans(String userId);
 
+    long countByCreateTimeAfter(Date date);
 }

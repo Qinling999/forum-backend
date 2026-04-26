@@ -1,8 +1,10 @@
 package com.example.forum.repository;
 
 import com.example.forum.model.Post;
+import org.springframework.data.mongodb.repository.Aggregation;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -40,4 +42,19 @@ public interface PostRepository extends MongoRepository<Post, String> {
 
     @Query("{ 'favoritedUsers': ?0 }")
     List<Post> findFavoritedPosts(String userId);
+
+    @Query(value = "{}", count = true)
+    long count();
+
+    long countByCreateTimeAfter(Date date);
+
+    @Aggregation(pipeline = {
+            "{ $group: { _id: null, total: { $sum: '$views' } } }"
+    })
+    Long sumViews();
+
+    @Aggregation(pipeline = {
+            "{ $group: { _id: null, total: { $sum: '$likes' } } }"
+    })
+    Long sumLikes();
 }

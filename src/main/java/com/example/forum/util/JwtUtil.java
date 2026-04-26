@@ -15,10 +15,11 @@ public class JwtUtil {
     private static final long EXPIRATION = 1000 * 60 * 60 * 24;
 
     // 生成 Token
-    public static String generateToken(String userId, String username) {
+    public static String generateToken(String userId, String username, String role) {
         return Jwts.builder()
                 .setSubject(userId)
                 .claim("username", username)
+                .claim("role", role)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
                 .signWith(key)
@@ -47,5 +48,10 @@ public class JwtUtil {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public static String getRole(String token) {
+        Claims claims = parseToken(token);
+        return claims.get("role", String.class);
     }
 }
