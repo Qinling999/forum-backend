@@ -10,8 +10,10 @@ import com.example.forum.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -124,55 +126,53 @@ public class StatsController {
     }
 
     @GetMapping("/trend")
-    public Result<List<Map<String, Object>>> trend() {
+    public Result<List<Map<String, Object>>> trend(
+            @RequestParam(required = false) String range,
+            @RequestParam(required = false) String startDate,
+            @RequestParam(required = false) String endDate
+    ) throws Exception {
 
         List<Map<String, Object>> list = new ArrayList<>();
 
-        // ⭐ 最近7天
-        for (int i = 30; i >= 0; i--) {
+        int days = 7;
 
-            Date start = statsService.getStartOfDay(i);
-            Date end = statsService.getEndOfDay(i);
+        if ("30".equals(range)) days = 30;
 
-            Map<String, Object> map = new HashMap<>();
+        // =========================
+        // ⭐ 自定义时间
+        // =========================
+        if ("custom".equals(range) && startDate != null && endDate != null) {
 
-            // ======================
-            // 日期
-            // ======================
-            map.put("date", statsService.formatDate(start));
+            Date start = new SimpleDateFormat("yyyy-MM-dd").parse(startDate);
+            Date end = new SimpleDateFormat("yyyy-MM-dd").parse(endDate);
 
-            // ======================
-            // 用户新增
-            // ======================
-            long users = userRepository.countByCreateTimeBetween(start, end);
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(start);
 
-            // ======================
-            // 帖子新增
-            // ======================
-            long posts = postRepository.countByCreateTimeBetween(start, end);
+            while (!cal.getTime().after(end)) {
 
-            // ======================
-            // 活跃用户（去重）
-            // ======================
-            List<History> histories =
-                    historyRepository.findByCreateTimeBetween(start, end);
+                Date dayStart = statsService.getStartOfDay(cal.getTime());
+                Date dayEnd = statsService.getEndOfDay(cal.getTime());
 
-            Set<String> activeSet = new HashSet<>();
+                Map<String, Object> map = statsService.buildDayData(dayStart, dayEnd);
 
-            for (History h : histories) {
-                if (h.getUserId() != null) {
-                    activeSet.add(h.getUserId());
-                }
+                list.add(map);
+
+                cal.add(Calendar.DAY_OF_MONTH, 1);
             }
 
-            int active = activeSet.size();
+            return Result.success(list);
+        }
 
-            // ======================
-            // 填充
-            // ======================
-            map.put("users", users);
-            map.put("posts", posts);
-            map.put("active", active);
+        // =========================
+        // ⭐ 默认 7 / 30 天
+        // =========================
+        for (int i = days - 1; i >= 0; i--) {
+
+            Date dayStart = statsService.getStartOfDay(i);
+            Date dayEnd = statsService.getEndOfDay(i);
+
+            Map<String, Object> map = statsService.buildDayData(dayStart, dayEnd);
 
             list.add(map);
         }
@@ -183,5 +183,15 @@ public class StatsController {
     @GetMapping("/analysis/hot")
     public Result<Map<String, Object>> hotAnalysis() {
         return Result.success(statsService.getHotAnalysis());
+    }
+
+    @GetMapping("/analysis/recommend")
+    public Result<Map<String, Object>> recommendAnalysis() {
+        return Result.success(statsService.getRecommendAnalysis());
+    }
+
+    @GetMapping("/analysis/user")
+    public Result<Map<String, Object>> userAnalysis() {
+        return Result.success(statsService.getUserAnalysis());
     }
 }

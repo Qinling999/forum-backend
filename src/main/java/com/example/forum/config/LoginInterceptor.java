@@ -34,7 +34,13 @@ public class LoginInterceptor implements HandlerInterceptor {
             request.setAttribute("role", role);
 
         } catch (Exception e) {
-            System.out.println("token解析失败");
+
+            response.setStatus(401);
+            response.setContentType("application/json;charset=UTF-8");
+
+            response.getWriter().write("{\"code\":401,\"message\":\"token无效\"}");
+
+            return false; // ❗必须拦截
         }
 
         return true;
