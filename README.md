@@ -148,8 +148,8 @@ java -jar forum-backend.jar
 ## 📸 项目展示
 
 - 首页
-<img width="974" height="474" alt="image" src="https://github.com/user-attachments/assets/4434d267-32c3-4b5d-b1f0-80bed80e5f1e" />
 <img width="878" height="499" alt="image" src="https://github.com/user-attachments/assets/e20a8f02-fcdc-413e-b1c1-f1e26405866e" />
+<img width="974" height="474" alt="image" src="https://github.com/user-attachments/assets/4434d267-32c3-4b5d-b1f0-80bed80e5f1e" />
 <img width="974" height="504" alt="image" src="https://github.com/user-attachments/assets/f980dc09-37ca-4786-83e3-e33de118b9e2" />
 <img width="974" height="510" alt="image" src="https://github.com/user-attachments/assets/4be52cc4-391b-4458-ac71-adadc73b1bc4" />
 
