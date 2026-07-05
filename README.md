@@ -159,16 +159,15 @@ java -jar forum-backend.jar
 
 - 用户主页
 <img width="974" height="571" alt="image" src="https://github.com/user-attachments/assets/5a5a5334-791a-4719-b9bf-35b427779da6" />
-<img width="974" height="515" alt="image" src="https://github.com/user-attachments/assets/03e02571-e639-4f55-a646-29c68334f5d6" />
 <img width="975" height="388" alt="image" src="https://github.com/user-attachments/assets/59cdae5d-386e-4f9d-a87e-9c8e105e9edb" />
 <img width="974" height="296" alt="image" src="https://github.com/user-attachments/assets/bc913d74-79a6-4c4a-868f-45e9b83753b8" />
 <img width="974" height="207" alt="image" src="https://github.com/user-attachments/assets/dcc2cb99-af94-4ea0-a5c7-04c68af097d1" />
 <img width="974" height="217" alt="image" src="https://github.com/user-attachments/assets/ecb22699-e788-47f9-909d-cece3e0eb6af" />
 <img width="975" height="146" alt="image" src="https://github.com/user-attachments/assets/901aff44-6035-4482-8a15-6e1652e003eb" />
+<img width="974" height="514" alt="image" src="https://github.com/user-attachments/assets/7f7c3d6c-968f-4053-90f8-7b323f55a5a3" />
 <img width="974" height="409" alt="image" src="https://github.com/user-attachments/assets/540154cb-5645-4a1e-b5a0-a56c935f5146" />
 <img width="975" height="510" alt="image" src="https://github.com/user-attachments/assets/be73af1b-7182-4eb9-a53d-f7eeffcace8c" />
 <img width="975" height="502" alt="image" src="https://github.com/user-attachments/assets/72bf8b2c-ad40-45be-8322-d3b28bb91cee" />
-<img width="974" height="514" alt="image" src="https://github.com/user-attachments/assets/7f7c3d6c-968f-4053-90f8-7b323f55a5a3" />
 
 - 私信聊天
 <img width="974" height="268" alt="image" src="https://github.com/user-attachments/assets/c1c01627-c067-4099-b329-1e8c999fc1e7" />
