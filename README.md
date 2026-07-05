@@ -147,14 +147,45 @@ java -jar forum-backend.jar
 
 ## 📸 项目展示
 
-建议在此处添加以下截图：
-
 - 首页
+<img width="882" height="492" alt="image" src="https://github.com/user-attachments/assets/65d8fa63-7ea1-44e2-9048-92569fc5af47" />
+<img width="878" height="499" alt="image" src="https://github.com/user-attachments/assets/e20a8f02-fcdc-413e-b1c1-f1e26405866e" />
+<img width="974" height="504" alt="image" src="https://github.com/user-attachments/assets/f980dc09-37ca-4786-83e3-e33de118b9e2" />
+<img width="974" height="510" alt="image" src="https://github.com/user-attachments/assets/4be52cc4-391b-4458-ac71-adadc73b1bc4" />
+
 - 帖子详情
+<img width="974" height="520" alt="image" src="https://github.com/user-attachments/assets/bc39056a-1668-44ca-93e6-9bdf6da9bca0" />
+<img width="975" height="455" alt="image" src="https://github.com/user-attachments/assets/bdf159e6-a695-41c3-a0a6-d6c10b26a5ac" />
+
 - 用户主页
+<img width="974" height="571" alt="image" src="https://github.com/user-attachments/assets/5a5a5334-791a-4719-b9bf-35b427779da6" />
+<img width="974" height="515" alt="image" src="https://github.com/user-attachments/assets/03e02571-e639-4f55-a646-29c68334f5d6" />
+<img width="975" height="388" alt="image" src="https://github.com/user-attachments/assets/59cdae5d-386e-4f9d-a87e-9c8e105e9edb" />
+<img width="974" height="296" alt="image" src="https://github.com/user-attachments/assets/bc913d74-79a6-4c4a-868f-45e9b83753b8" />
+<img width="974" height="207" alt="image" src="https://github.com/user-attachments/assets/dcc2cb99-af94-4ea0-a5c7-04c68af097d1" />
+<img width="974" height="217" alt="image" src="https://github.com/user-attachments/assets/ecb22699-e788-47f9-909d-cece3e0eb6af" />
+<img width="975" height="146" alt="image" src="https://github.com/user-attachments/assets/901aff44-6035-4482-8a15-6e1652e003eb" />
+<img width="974" height="409" alt="image" src="https://github.com/user-attachments/assets/540154cb-5645-4a1e-b5a0-a56c935f5146" />
+<img width="975" height="510" alt="image" src="https://github.com/user-attachments/assets/be73af1b-7182-4eb9-a53d-f7eeffcace8c" />
+<img width="975" height="502" alt="image" src="https://github.com/user-attachments/assets/72bf8b2c-ad40-45be-8322-d3b28bb91cee" />
+<img width="974" height="514" alt="image" src="https://github.com/user-attachments/assets/7f7c3d6c-968f-4053-90f8-7b323f55a5a3" />
+
 - 私信聊天
+<img width="974" height="268" alt="image" src="https://github.com/user-attachments/assets/c1c01627-c067-4099-b329-1e8c999fc1e7" />
+<img width="974" height="514" alt="image" src="https://github.com/user-attachments/assets/bc6436d9-3325-4fe3-be64-624020c13b82" />
+
 - 通知中心
+<img width="974" height="446" alt="image" src="https://github.com/user-attachments/assets/c913e29e-f697-4957-80fc-be61b72cf786" />
+<img width="975" height="267" alt="image" src="https://github.com/user-attachments/assets/d72814c4-aaa5-482d-9e2a-4edb804040f6" />
+
 - 后台数据统计
+<img width="974" height="515" alt="image" src="https://github.com/user-attachments/assets/770191cd-dfa3-4889-831f-3683cdf66f9f" />
+<img width="975" height="347" alt="image" src="https://github.com/user-attachments/assets/af640b12-02ff-496e-be2e-844fccaff2b7" />
+<img width="975" height="511" alt="image" src="https://github.com/user-attachments/assets/60d5488f-7d3b-4160-a648-7b19463ccd69" />
+<img width="975" height="521" alt="image" src="https://github.com/user-attachments/assets/74fc3bae-28f7-49b4-85fe-562568a5e62a" />
+<img width="975" height="499" alt="image" src="https://github.com/user-attachments/assets/689e9d3d-e95c-498c-b782-127405e30607" />
+<img width="975" height="126" alt="image" src="https://github.com/user-attachments/assets/8c6acc9d-94cf-44e2-b8c5-124f87d7f02f" />
+<img width="975" height="525" alt="image" src="https://github.com/user-attachments/assets/14939b67-8f03-4644-95b6-97faa51c888f" />
 
 ---
 
