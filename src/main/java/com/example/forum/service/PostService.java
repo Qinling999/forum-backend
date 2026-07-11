@@ -138,6 +138,9 @@ public class PostService {
             PostVO vo = new PostVO();
             BeanUtils.copyProperties(post, vo);
 
+            long commentCount = commentRepository.countByPostId(post.getId());
+            vo.setCommentCount(commentCount);
+
 // ⭐ 强制补充（防止字段不一致/未来改名出问题）
             vo.setCategoryId(post.getCategoryId());
 
@@ -176,6 +179,9 @@ public class PostService {
 
                 PostVO vo = new PostVO();
                 BeanUtils.copyProperties(post, vo);
+
+                long commentCount = commentRepository.countByPostId(post.getId());
+                vo.setCommentCount(commentCount);
 
                 vo.setScore(score);
                 vo.setReason("🔥 热门推荐 · 🆕 最新内容");

@@ -1,5 +1,6 @@
 package com.example.forum.config;
 
+import com.example.forum.interceptor.AdminInterceptor;
 import com.example.forum.interceptor.JwtInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +11,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
     private JwtInterceptor jwtInterceptor;
+    @Autowired
+    private AdminInterceptor adminInterceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -20,17 +23,19 @@ public class WebConfig implements WebMvcConfigurer {
                         "/user/login",
                         "/user/register",
                         "/post/list",
-                        //"/post/{id}",
                         "/post/category/**",
                         "/post/search",
                         "/post/page",
                         "/post/searchPage",
                         "/category/**",
-                        "/upload/**",     // ⭐ 放行图片
-                        "/static/**",     // ⭐ 放行静态资源
+                        "/upload/**",
+                        "/static/**",
                         "/favicon.ico",
                         "/error"
                 );
+
+        registry.addInterceptor(adminInterceptor)
+                .addPathPatterns("/admin/**"); // ⭐ 管理员接口
     }
 
     @Override

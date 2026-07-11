@@ -20,6 +20,7 @@ public class PostVO {
     private Integer likes;
 
     private List<Comment> comments;
+    private Long commentCount;
 
     private int views;
 
@@ -35,5 +36,9 @@ public class PostVO {
 
     public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
+    }
+
+    public void setCommentCount(Long commentCount) {
+        this.commentCount = commentCount;
     }
 }

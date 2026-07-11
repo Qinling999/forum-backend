@@ -8,8 +8,9 @@ import java.util.Date;
 
 public class JwtUtil {
 
-    // 密钥（正式环境建议放配置文件）
-    private static final Key key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    // ⭐ 固定密钥（关键！）
+    private static final String SECRET = "your-secret-key-1234567890-your-secret-key";
+    private static final Key key = Keys.hmacShaKeyFor(SECRET.getBytes());
 
     // 过期时间（1天）
     private static final long EXPIRATION = 1000 * 60 * 60 * 24;
@@ -35,12 +36,10 @@ public class JwtUtil {
                 .getBody();
     }
 
-    // 获取 userId
     public static String getUserId(String token) {
         return parseToken(token).getSubject();
     }
 
-    // 校验 Token
     public static boolean validateToken(String token) {
         try {
             parseToken(token);
